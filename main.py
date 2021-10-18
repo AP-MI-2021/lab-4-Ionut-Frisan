@@ -5,10 +5,12 @@ def printMenu():
     prints the UI
     """
     print("Alegeti o optiune de mai jos:")
-    print("a. Citire lista(in aceeasi linie separate prin spatiu)")
-    print("1. Afiseaza toate numerele intregi din lista citita")
-    print("2. Afiseaza cel mai mare numar divizibil cu numarul x citit de la tastatura")
-    print("3. Afiseaza numerele a caror parte fractionara este palindrom")
+    print("1. Citire lista(in aceeasi linie separate prin spatiu)")
+    print("2. Afiseaza lista fara duplicate")
+    print("3. Afiseaza suma primelor n numere naturale din lista")
+    print("4. Verifica daca lista este sortata crescator")
+    print("6.exit")
+
 def readList():
     """
     takes the input from the user and returns a list of floats
@@ -16,8 +18,62 @@ def readList():
     lst = []
     inputs = input("Introduceti valorile listei: \n")
     for value in inputs.split():
-        lst.append(float(value))
+        lst.append(int(value))
     return lst
+
+def eliminateDuplicate(lst):
+    """
+    param lst: list of integers
+    returns a list with unique elements of lst
+    """
+    uniqueList = []
+    for value in lst:
+        if value not in uniqueList:
+            uniqueList.append(value)
+
+    return uniqueList
+
+def getSumFirstPoz(lst, n):
+    """
+    parameters: lst - list of integers
+                n - int 
+    returns first n positive numbers in lst
+    """
+    count = 0
+    total = 0
+    for value in lst:
+        if value >= 0 and count < n:
+            total = total + value
+            count = count +1
+
+    if count >= n:
+        return total
+    else:
+        return "Dimensiunea listei este prea mica"
+
+def checkIfLstIsAsc(lst):
+    """
+    parameter: lst - list of integers
+    returns "DA" if the list is ascending, "NU" otherwise
+    """
+    newlist = []
+    for value in lst:
+        if value >= 0:
+            newlist.append(value)
+
+    if newlist == newlist.sort():
+        return "DA"
+    else:
+        return "NU"
+
+def testEliminateDuplicate():
+    assert(eliminateDuplicate([3,4,2,4,3]) == [3,4,2] )
+    assert(eliminateDuplicate([2,3,4]) == [2,3,4])
+    assert(eliminateDuplicate([0,-3,-3]) == [0,-3])
+
+def testGetSumFirstPoz():
+    assert(getSumFirstPoz([2,3,4,-3],3) == 9)
+    assert(getSumFirstPoz([-3,4], 2) == "Dimensiunea listei este prea mica")
 
 def getIntegersFromList(lst):
     """
@@ -76,23 +132,25 @@ def testGetFloatsWithFractionalPalindrom():
     assert getFloatsWithFractionalPalindrom([1.1]) == [1.1]
 
 def run():
-    testGetIntegersFromList()
-    testGetLargestDivisible()
-    testGetFloatsWithFractionalPalindrom
+    testEliminateDuplicate()
+    testGetSumFirstPoz()
     lst=[]
     while True:
         print(f"Lista citita: {lst}")
         printMenu()
         option = input("optiune: ")
-        if option == "a":
+        if option == "1":
             lst = readList()
-        elif option == "1":
-            print(getIntegersFromList(lst))
+            lst = eliminateDuplicate(lst)
         elif option == "2":
-            x = float(input("Introduceti valoarea lui x: "))
-            print(getLargestDivisible(lst, x))
+            print(eliminateDuplicate(lst))
         elif option == "3":
-            print(getFloatsWithFractionalPalindrom(lst))
+            x = int(input("Introduceti valoarea lui x: "))
+            print(getSumFirstPoz(lst, x))
+        elif option == "4":
+            print(checkIfLstIsAsc(lst))
+        elif option == "6":
+            break
         else:
             print("Optiune invalida")
 
