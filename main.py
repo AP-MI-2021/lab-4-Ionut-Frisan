@@ -8,7 +8,7 @@ def printMenu():
     print("a. Citire lista(in aceeasi linie separate prin spatiu)")
     print("1. Afiseaza toate numerele intregi din lista citita")
     print("2. Afiseaza cel mai mare numar divizibil cu numarul x citit de la tastatura")
-
+    print("3. Afiseaza numerele a caror parte fractionara este palindrom")
 def readList():
     """
     takes the input from the user and returns a list of floats
@@ -58,8 +58,6 @@ def getFloatsWithFractionalPalindrom(lst):
             fracLst.append(value)
     return fracLst
 
-
-
 def testGetIntegersFromList():
     assert getIntegersFromList([2.0,3.0,4.0,5.3,7.2]) == [2.0,3.0,4.0]
     assert getIntegersFromList([]) == []
@@ -91,7 +89,7 @@ def run():
         elif option == "1":
             print(getIntegersFromList(lst))
         elif option == "2":
-            x = int(input("Introduceti valoarea lui x: "))
+            x = float(input("Introduceti valoarea lui x: "))
             print(getLargestDivisible(lst, x))
         elif option == "3":
             print(getFloatsWithFractionalPalindrom(lst))
